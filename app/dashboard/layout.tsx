@@ -9,14 +9,17 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/auth/login')
 
-  const { data: profile } = await supabase
+  let { data: profile } = await supabase
     .from('profiles')
     .select('role, name')
     .eq('id', user.id)
     .single()
 
   if (!profile) {
-    return <div className="p-8">Profile not found. Contact administrator.</div>
+    profile = {
+       role: user.user_metadata?.role || 'student',
+       name: user.user_metadata?.name || 'New User',
+    }
   }
 
   return (

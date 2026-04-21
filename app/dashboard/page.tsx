@@ -9,9 +9,9 @@ export default async function DashboardIndex() {
   const { data: profile } = await supabase
     .from('profiles').select('role').eq('id', user.id).single()
 
-  if (profile?.role) {
-    redirect(`/dashboard/${profile.role}`)
-  }
+  const role = profile?.role || user.user_metadata?.role || 'student';
 
-  return <div>Role mapping not found.</div>
+  if (role) {
+    redirect(`/dashboard/${role}`)
+  }
 }
