@@ -8,6 +8,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
+  const [role, setRole] = useState('student')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -28,6 +29,7 @@ export default function SignupPage() {
       options: {
         data: {
           name,
+          role
         }
       }
     })
@@ -38,7 +40,7 @@ export default function SignupPage() {
     } else {
        // Since new signups won't have a profile row automatically, they might see "Profile not found". 
        // We'll redirect them to wait or push to login flow.
-       alert("Sign up successful! Please wait for admin to assign your role.")
+       alert(`Sign up successful! You are registered as a ${role}.`)
        router.push('/auth/login')
     }
   }
@@ -90,6 +92,18 @@ export default function SignupPage() {
                className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
                placeholder="••••••••"
              />
+          </div>
+          <div>
+             <label className="block text-sm font-medium text-neutral-700 mb-1">I am a...</label>
+             <select
+               value={role}
+               onChange={(e) => setRole(e.target.value)}
+               className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all bg-white"
+             >
+               <option value="student">Student</option>
+               <option value="parent">Parent</option>
+               <option value="teacher">Teacher</option>
+             </select>
           </div>
           
           <button

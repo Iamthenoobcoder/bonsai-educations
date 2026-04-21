@@ -16,17 +16,16 @@
 ▲ Next.js 16.2.4 (Turbopack)
 - Environments: .env.local
 
-⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
-✓ Compiled successfully in 4.6s
+✓ Compiled successfully in 3.1s
   Skipping validation of types
-  Finished TypeScript config validation in 7ms ...
+  Finished TypeScript config validation in 17ms ...
   Collecting page data using 15 workers ...
-  Generating static pages using 15 workers (0/21) ...
-  Generating static pages using 15 workers (5/21) 
-  Generating static pages using 15 workers (10/21) 
-  Generating static pages using 15 workers (15/21) 
-✓ Generating static pages using 15 workers (21/21) in 326ms
+  Generating static pages using 15 workers (0/22) ...
+  Generating static pages using 15 workers (5/22) 
+  Generating static pages using 15 workers (10/22) 
+  Generating static pages using 15 workers (16/22) 
+✓ Generating static pages using 15 workers (22/22) in 546ms
   Finalizing page optimization ...
 
 Route (app)
@@ -36,6 +35,7 @@ Route (app)
 ├ ƒ /api/quiz
 ├ ƒ /auth/callback
 ├ ○ /auth/login
+├ ○ /auth/signup
 ├ ƒ /dashboard
 ├ ƒ /dashboard/admin
 ├ ƒ /dashboard/admin/classes
