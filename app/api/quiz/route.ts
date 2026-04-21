@@ -9,10 +9,10 @@ export async function POST(req: Request) {
       return Response.json({
         questions: [
           {
-            question: `Sample question about ${subject} for ${grade}?`,
-            options: ["A", "B", "C", "D"],
+            question: `Sample assessment question covering ${subject} topics for ${grade}?`,
+            options: ["Option A", "Option B", "Option C", "Option D"],
             correct: 0,
-            explanation: "This is a dummy explanation because GEMINI_API_KEY is not set."
+            explanation: "Automated analysis pending AI engine configuration."
           }
         ]
       })
