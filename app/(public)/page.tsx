@@ -16,12 +16,20 @@ export default function LandingPage() {
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-black/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <span className="font-semibold text-xl tracking-tight text-neutral-900">BONSAI EDUCATIONS</span>
-          <Link
-            href="/auth/login"
-            className="text-sm font-medium text-neutral-900 hover:text-amber-600 transition-colors"
-          >
-            Sign In
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/auth/login"
+              className="text-sm font-medium text-neutral-900 hover:text-amber-600 transition-colors"
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/auth/signup"
+              className="text-sm font-medium bg-amber-600 text-white px-4 py-2 rounded-full hover:bg-amber-700 transition-colors"
+            >
+              Sign Up
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -63,8 +71,8 @@ export default function LandingPage() {
            >
              <div>
                <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">A legacy of brilliant minds.</h2>
-               <p className="text-lg text-neutral-600 mb-6 leading-relaxed">
-                 Founded in 1998, the BONSAI EDUCATIONS has consistently ranked as the #1 destination for holistic education. We don't just teach the syllabus; we nurture critical thinking, instilling a profound understanding of the sciences, mathematics, and arts.
+                <p className="text-lg text-neutral-600 mb-6 leading-relaxed">
+                 BONSAI EDUCATIONS is a premier destination for holistic education. We don't just teach the syllabus; we nurture critical thinking, instilling a profound understanding of the sciences, mathematics, and arts.
                </p>
              </div>
              <div className="grid grid-cols-2 gap-6">
@@ -83,33 +91,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Achievements */}
-      <section className="py-32 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <motion.div
-            initial="hidden" 
-            whileInView="visible" 
-            viewport={{ once: true }}
-            variants={fadeIn}
-          >
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-20 text-neutral-900">Numbers that speak.</h2>
-            <div className="grid md:grid-cols-3 gap-12">
-              <div className="flex flex-col items-center">
-                <span className="text-6xl font-bold text-neutral-900 mb-4">10k+</span>
-                <span className="text-lg font-medium text-neutral-500">Students Honored</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-6xl font-bold text-neutral-900 mb-4">98%</span>
-                <span className="text-lg font-medium text-neutral-500">Success Rate</span>
-              </div>
-              <div className="flex flex-col items-center">
-                <span className="text-6xl font-bold text-neutral-900 mb-4">50+</span>
-                <span className="text-lg font-medium text-neutral-500">State Ranks</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+
 
       {/* Contact Section */}
       <footer className="bg-[#1d1d1f] text-[#f5f5f7] py-20 px-6">

@@ -67,9 +67,7 @@ export default async function ParentDashboard() {
             </h3>
             <p className="text-red-700 text-sm mb-4">Subjects with average scores below 60%</p>
             <div className="flex flex-wrap gap-2">
-               {/* Dummy placeholders for now until data comes */}
-               <span className="px-3 py-1.5 bg-red-100 text-red-800 rounded-xl text-xs font-bold uppercase tracking-wider">Physics</span>
-               <span className="px-3 py-1.5 bg-red-100 text-red-800 rounded-xl text-xs font-bold uppercase tracking-wider">History</span>
+               <span className="text-xs text-neutral-400 italic">No weak areas identified yet.</span>
             </div>
          </div>
       </div>
