@@ -22,6 +22,13 @@ export default async function DashboardLayout({ children }: { children: React.Re
     }
   }
 
+  const handleSignOut = async () => {
+    'use server'
+    const supabase = await createClient()
+    await supabase.auth.signOut()
+    redirect('/')
+  }
+
   return (
     <div className="flex h-screen bg-[#f5f5f7]">
       {/* Sidebar */}
@@ -53,8 +60,8 @@ export default async function DashboardLayout({ children }: { children: React.Re
         </nav>
         <div className="p-4 border-t border-neutral-100">
           <p className="text-sm font-medium text-neutral-900 px-3 py-1">{profile.name}</p>
-          <form action="/auth/login" method="POST">
-             <button className="flex w-full items-center px-3 py-2 mt-2 text-sm font-medium rounded-xl text-red-600 hover:bg-red-50 text-left">
+          <form action={handleSignOut}>
+             <button type="submit" className="flex w-full items-center px-3 py-2 mt-2 text-sm font-medium rounded-xl text-red-600 hover:bg-red-50 text-left">
                <LogOut className="w-5 h-5 mr-3 text-red-500" />
                Sign Out
              </button>
