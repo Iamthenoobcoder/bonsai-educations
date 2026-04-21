@@ -2,6 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronRight, Award, BookOpen, Users, MapPin, Phone, Mail } from "lucide-react";
 
 const fadeIn: Variants = {
@@ -15,7 +16,10 @@ export default function LandingPage() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-black/5">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-semibold text-xl tracking-tight text-neutral-900">BONSAI EDUCATIONS</span>
+          <div className="flex items-center gap-3">
+            <Image src="/logo.jpg" alt="BONSAI EDUCATIONS" width={40} height={40} className="object-contain" />
+            <span className="font-bold text-xl tracking-tight text-neutral-900 mt-1">BONSAI EDUCATIONS</span>
+          </div>
           <div className="flex items-center gap-4">
             <Link
               href="/auth/login"

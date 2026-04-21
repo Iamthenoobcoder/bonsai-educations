@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { LayoutDashboard, Users, Calendar, LogOut } from 'lucide-react'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -23,8 +24,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-neutral-200 flex flex-col">
         <div className="p-6 border-b border-neutral-100">
-          <span className="font-semibold text-lg tracking-tight">BONSAI PORTAL</span>
-          <p className="text-sm text-neutral-500 capitalize mt-1 border border-neutral-200 inline-block px-2 py-0.5 rounded-full">{profile.role}</p>
+          <div className="flex items-center gap-3 mb-3">
+            <Image src="/logo.jpg" alt="BONSAI PORTAL" width={32} height={32} className="object-contain" />
+            <span className="font-bold text-lg tracking-tight leading-none mt-1">BONSAI<br/>PORTAL</span>
+          </div>
+          <p className="text-sm text-neutral-500 capitalize border border-neutral-200 inline-block px-2 py-0.5 rounded-full">{profile.role}</p>
         </div>
         <nav className="flex-1 p-4 space-y-1">
           <Link href={`/dashboard/${profile.role}`} className="flex items-center px-3 py-2 text-sm font-medium rounded-xl text-neutral-900 bg-neutral-100/50 hover:bg-neutral-100">
