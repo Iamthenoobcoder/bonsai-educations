@@ -1,82 +1,159 @@
-"use client"
-import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+"use client";
+
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { BookOpen, Users, GraduationCap } from "lucide-react";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
-  const router = useRouter()
-  const supabase = createClient()
+  const [role, setRole] = useState("student");
+  const [show, setShow] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+  const supabase = createClient();
+
+  const roles = [
+    { v: "student", label: "Student", icon: GraduationCap },
+    { v: "parent", label: "Parent", icon: Users },
+    { v: "teacher", label: "Teacher", icon: BookOpen },
+  ];
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
-    })
+    });
 
     if (error) {
-       setError(error.message)
-       setLoading(false)
+      setError(error.message);
+      setLoading(false);
     } else {
-       router.push('/dashboard')
-       router.refresh()
+      router.push("/dashboard");
+      router.refresh();
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#f5f5f7] px-4">
-      <div className="max-w-md w-full bg-white p-8 rounded-3xl shadow-sm border border-neutral-100">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold tracking-tight text-neutral-900">Sign In</h2>
-          <p className="text-neutral-500 mt-2">Access your portal dashboard.</p>
-        </div>
+    <div className="flex flex-col md:flex-row min-h-screen font-sans bg-white">
+      {/* Left brand panel */}
+      <div className="hidden md:flex w-[58%] bg-gradient-to-br from-navy to-teal-600 flex-col items-center justify-center p-12 relative overflow-hidden">
+        <div className="absolute top-[-60px] right-[-60px] w-[280px] h-[280px] rounded-full bg-white/5" />
+        <div className="absolute bottom-[-80px] left-[-40px] w-[320px] h-[320px] rounded-full bg-gold/10" />
         
-        {error && (
-          <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl mb-6">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleLogin} className="space-y-5">
-          <div>
-             <label className="block text-sm font-medium text-neutral-700 mb-1">Email address</label>
-             <input
-               type="email"
-               required
-               value={email}
-               onChange={(e) => setEmail(e.target.value)}
-               className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
-               placeholder="name@example.com"
-             />
-          </div>
-          <div>
-             <label className="block text-sm font-medium text-neutral-700 mb-1">Password</label>
-             <input
-               type="password"
-               required
-               value={password}
-               onChange={(e) => setPassword(e.target.value)}
-               className="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all"
-               placeholder="••••••••"
-             />
-          </div>
+        <div className="text-center relative z-10">
+          <Link href="/" className="w-[72px] h-[72px] rounded-2xl bg-white/15 flex items-center justify-center mx-auto mb-5 border border-white/20 transition-transform hover:scale-105 cursor-pointer">
+            <BookOpen size={32} className="text-white" />
+          </Link>
+          <h1 className="display text-white text-4xl font-bold mb-2.5">BONSAI EDUCATIONS</h1>
+          <p className="text-white/65 text-base mb-12 italic">Profound learning. Absolute clarity.</p>
           
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-amber-600 text-white font-medium py-3 rounded-xl hover:bg-amber-700 transition-colors disabled:opacity-50"
-          >
-            {loading ? "Signing in..." : "Continue"}
-          </button>
-        </form>
+          <div className="bg-white/10 border border-white/15 rounded-2xl p-6 px-7 max-w-[320px] text-left mx-auto">
+            <div className="text-gold text-4xl font-serif leading-[0.8] mb-2.5">"</div>
+            <p className="text-white/80 text-[13px] leading-[1.8] italic mb-3.5">
+              My competitive exam rank improved significantly after joining Bonsai. The faculty is exceptional.
+            </p>
+            <p className="text-white/50 text-xs">— Aryan Singh, Top Performer</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Right form */}
+      <div className="flex-1 flex items-center justify-center p-10 bg-white">
+        <div className="w-full max-w-[380px]">
+          <h2 className="text-[26px] font-bold text-navy mb-1.5">Welcome back</h2>
+          <p className="text-muted text-[14px] mb-8">Sign in to your portal dashboard.</p>
+
+          <div className="grid grid-cols-3 gap-2.5 mb-7">
+            {roles.map((r) => (
+              <div
+                key={r.v}
+                onClick={() => setRole(r.v)}
+                className={`border-2 rounded-xl p-4 cursor-pointer transition-all text-center bg-white flex flex-col items-center justify-center
+                  ${role === r.v ? "border-teal-600 bg-[#f0f9f5]" : "border-border hover:border-gray-400"}
+                `}
+              >
+                <r.icon size={20} className={role === r.v ? "text-teal-600" : "text-muted"} />
+                <p className={`text-[13px] font-semibold mt-1.5 ${role === r.v ? "text-teal-600" : "text-muted"}`}>
+                  {r.label}
+                </p>
+                {role === r.v && (
+                  <div className="w-1.5 h-1.5 rounded-full bg-teal-600 mt-1.5" />
+                )}
+              </div>
+            ))}
+          </div>
+
+          {error && (
+            <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl mb-6">
+              {error}
+            </div>
+          )}
+
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label className="block text-[13px] font-semibold text-navy mb-1.5">Email address</label>
+              <input
+                className="w-full p-3.5 border-2 border-border rounded-xl font-sans text-[15px] outline-none transition-colors bg-white focus:border-teal-600 focus:shadow-[0_0_0_3px_rgba(15,110,86,.1)]"
+                placeholder="you@example.com"
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block text-[13px] font-semibold text-navy mb-1.5">Password</label>
+              <div className="relative">
+                <input
+                  className="w-full p-3.5 pr-11 border-2 border-border rounded-xl font-sans text-[15px] outline-none transition-colors bg-white focus:border-teal-600 focus:shadow-[0_0_0_3px_rgba(15,110,86,.1)]"
+                  placeholder="••••••••"
+                  type={show ? "text" : "password"}
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShow(!show)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-muted text-[13px] hover:text-navy"
+                >
+                  {show ? "Hide" : "Show"}
+                </button>
+              </div>
+            </div>
+            
+            <div className="text-right mb-6">
+              <span className="text-teal-600 text-[13px] cursor-pointer font-medium hover:underline">
+                Forgot password?
+              </span>
+            </div>
+            
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-teal-600 text-white border-none py-3.5 rounded-xl font-sans text-[15px] font-semibold cursor-pointer transition-all hover:bg-teal-700 hover:-translate-y-0.5 shadow-md shadow-teal-600/30 disabled:opacity-70 disabled:hover:translate-y-0"
+            >
+              {loading ? "Signing in..." : "Continue →"}
+            </button>
+          </form>
+
+          <p className="text-center mt-5 text-[13px] text-muted">
+            Don't have an account?{" "}
+            <Link href="/auth/signup" className="text-teal-600 font-semibold cursor-pointer hover:underline">
+              Sign up
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
-  )
+  );
 }

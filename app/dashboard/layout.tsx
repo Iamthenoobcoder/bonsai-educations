@@ -1,8 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
-import { LayoutDashboard, Users, Calendar, LogOut } from 'lucide-react'
+import { LayoutDashboard, Users, Calendar, LogOut, BookOpen, Bell } from 'lucide-react'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -29,50 +28,84 @@ export default async function DashboardLayout({ children }: { children: React.Re
     redirect('/')
   }
 
+  const initials = profile.name.split(' ').map((n: string) => n[0]).join('').substring(0,2) || 'U'
+
   return (
-    <div className="flex h-screen bg-[#f5f5f7]">
+    <div className="flex h-screen font-sans bg-surface overflow-hidden">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-neutral-200 flex flex-col">
-        <div className="p-6 border-b border-neutral-100">
-          <div className="flex items-center gap-3 mb-3">
-            <Image src="/logo.jpg" alt="BONSAI PORTAL" width={32} height={32} className="object-contain" />
-            <span className="font-bold text-lg tracking-tight leading-none mt-1">BONSAI<br/>PORTAL</span>
+      <aside className="w-[220px] bg-navy flex flex-col py-5 shrink-0">
+        <div className="flex items-center gap-2 px-4 pb-5 border-b border-white/10">
+          <div className="w-[30px] h-[30px] rounded-lg bg-teal-600 flex items-center justify-center">
+            <BookOpen size={14} className="text-white" />
           </div>
-          <p className="text-sm text-neutral-500 capitalize border border-neutral-200 inline-block px-2 py-0.5 rounded-full">{profile.role}</p>
+          <span className="text-white font-bold text-[13px] tracking-wide">BONSAI</span>
         </div>
-        <nav className="flex-1 p-4 space-y-1">
-          <Link href={`/dashboard/${profile.role}`} className="flex items-center px-3 py-2 text-sm font-medium rounded-xl text-neutral-900 bg-neutral-100/50 hover:bg-neutral-100">
-            <LayoutDashboard className="w-5 h-5 mr-3 text-neutral-500" />
+        
+        <nav className="flex-1 mt-3 px-2 space-y-1">
+          <Link href={`/dashboard/${profile.role}`} className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg text-[14px] font-medium transition-all bg-teal-600/25 text-[#4ade80] border-l-[3px] border-[#4ade80]">
+            <LayoutDashboard size={15} />
             Overview
           </Link>
+          
           {profile.role === 'admin' && (
             <>
-              <Link href="/dashboard/admin/users" className="flex items-center px-3 py-2 text-sm font-medium rounded-xl text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100">
-                <Users className="w-5 h-5 mr-3 text-neutral-400" />
+              <Link href="/dashboard/admin/users" className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg text-[14px] font-medium transition-all text-white/60 hover:bg-white/10 hover:text-white">
+                <Users size={15} />
                 Manage Users
               </Link>
-              <Link href="/dashboard/admin/timetable" className="flex items-center px-3 py-2 text-sm font-medium rounded-xl text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100">
-                <Calendar className="w-5 h-5 mr-3 text-neutral-400" />
+              <Link href="/dashboard/admin/timetable" className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg text-[14px] font-medium transition-all text-white/60 hover:bg-white/10 hover:text-white">
+                <Calendar size={15} />
                 Timetable
               </Link>
             </>
           )}
         </nav>
-        <div className="p-4 border-t border-neutral-100">
-          <p className="text-sm font-medium text-neutral-900 px-3 py-1">{profile.name}</p>
+
+        <div className="px-2.5 py-4 border-t border-white/10">
+          <div className="flex items-center gap-2 px-1.5 py-2">
+            <div className="w-8 h-8 rounded-lg bg-[#1e3a5f] flex items-center justify-center text-white text-xs font-bold shrink-0">
+              {initials}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-white text-xs font-semibold truncate">{profile.name}</p>
+              <p className="text-white/40 text-[10px] capitalize">{profile.role}</p>
+            </div>
+          </div>
           <form action={handleSignOut}>
-             <button type="submit" className="flex w-full items-center px-3 py-2 mt-2 text-sm font-medium rounded-xl text-red-600 hover:bg-red-50 text-left">
-               <LogOut className="w-5 h-5 mr-3 text-red-500" />
+             <button type="submit" className="flex w-full items-center px-3 py-2 mt-2 text-xs font-medium rounded-lg text-red-400 hover:bg-white/5 transition-colors">
+               <LogOut size={14} className="mr-2" />
                Sign Out
              </button>
           </form>
         </div>
       </aside>
 
-      {/* Main Content */}
-      <main className="flex-1 overflow-y-auto w-full p-8">
-         {children}
-      </main>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Top bar */}
+        <header className="bg-white border-b border-border px-6 py-3.5 flex justify-between items-center shrink-0">
+          <div>
+            <h1 className="text-lg font-bold text-navy capitalize">
+              {profile.role} Portal
+            </h1>
+            <p className="text-muted text-xs">Welcome back to Bonsai Educations</p>
+          </div>
+          <div className="flex items-center gap-3.5">
+            <div className="relative cursor-pointer">
+              <Bell size={18} className="text-muted hover:text-navy transition-colors" />
+              <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500 border-2 border-white" />
+            </div>
+            <div className="w-[34px] h-[34px] rounded-lg bg-navy flex items-center justify-center text-white text-xs font-bold">
+              {initials}
+            </div>
+          </div>
+        </header>
+
+        {/* Page Content */}
+        <main className="flex-1 overflow-auto p-6 bg-surface">
+           {children}
+        </main>
+      </div>
     </div>
   )
 }
