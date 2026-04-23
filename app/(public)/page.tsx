@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { BookOpen, Users, TrendingUp, Check, Star, Trophy } from "lucide-react";
 
 export default function LandingPage() {
@@ -56,9 +57,7 @@ export default function LandingPage() {
         className="sticky top-0 z-50 flex items-center justify-between h-16 px-6 md:px-[5%] backdrop-blur-md transition-all duration-300"
       >
         <div className="flex items-center gap-3">
-          <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-teal-600 text-white">
-            <BookOpen size={18} />
-          </div>
+          <Image src="/logo.jpg" alt="Bonsai Logo" width={34} height={34} className="rounded-lg object-contain bg-white" />
           <span className={`font-bold text-[15px] tracking-wide ${scrolled ? "text-navy" : "text-white"}`}>
             BONSAI EDUCATIONS
           </span>
@@ -139,7 +138,7 @@ export default function LandingPage() {
           </div>
           <h2 className="display text-[40px] font-bold text-navy mb-4 leading-tight">A legacy of brilliant minds.</h2>
           <p className="text-muted text-base leading-[1.8] mb-4">
-            Founded in 2009, Bonsai Educations has grown to become Ludhiana's most trusted name in secondary and senior secondary coaching. We don't just teach the syllabus — we nurture critical thinking and build lasting subject mastery.
+            Founded in 2009, Bonsai Educations has grown to become Ludhiana&apos;s most trusted name in secondary and senior secondary coaching. We don&apos;t just teach the syllabus — we nurture critical thinking and build lasting subject mastery.
           </p>
           <p className="text-muted text-base leading-[1.8] mb-7">
             Located at 157-I, Sarabha Nagar, our campus serves students from Class 8 through 12 across Science, Commerce, and Arts streams.
@@ -196,7 +195,7 @@ export default function LandingPage() {
         </div>
         <div className="grid md:grid-cols-4 gap-5 mb-10">
           {toppers.map((t, i) => (
-            <div key={i} className="border border-border rounded-xl p-6 border-l-4 border-l-gold animate-[count_.5s_both]" style={{ animationDelay: `${i * 0.1}s` }}>
+            <div key={i} className="border border-border rounded-xl p-6 border-l-4 border-l-gold animate-[count_.5s_both] transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-lg hover:shadow-navy/5 cursor-pointer bg-white" style={{ animationDelay: `${i * 0.1}s` }}>
               <div className="w-11 h-11 rounded-lg bg-navy flex items-center justify-center text-white font-bold text-[15px] mb-3.5">
                 {t.name.split(" ").map((n) => n[0]).join("")}
               </div>
@@ -248,7 +247,7 @@ export default function LandingPage() {
                 transform: i === activeTestimonial ? "scale(1.02)" : "scale(0.98)",
               }}
             >
-              <div className="text-gold text-5xl leading-[0.8] mb-4 font-serif">"</div>
+              <div className="text-gold text-5xl leading-[0.8] mb-4 font-serif">&quot;</div>
               <p className="text-gray-700 text-[14px] leading-[1.85] mb-5 italic">{t.quote}</p>
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-lg bg-navy flex items-center justify-center text-white text-xs font-bold">
@@ -279,13 +278,11 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-[2fr_1fr_1.5fr] gap-10 mb-10">
             <div>
               <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center">
-                  <BookOpen size={15} className="text-white" />
-                </div>
-                <span className="text-white font-bold text-[14px]">BONSAI EDUCATIONS</span>
+              <Image src="/logo.jpg" alt="Bonsai Logo" width={32} height={32} className="rounded-lg object-contain bg-white" />
+              <span className="text-white font-bold text-[14px]">BONSAI EDUCATIONS</span>
               </div>
               <p className="text-white/60 text-[13.5px] leading-[1.8] max-w-[380px]">
-                Empowering minds and shaping the leaders of tomorrow through unparalleled educational standards. We don't just teach the syllabus — we nurture critical thinking.
+                Empowering minds and shaping the leaders of tomorrow through unparalleled educational standards. We don&apos;t just teach the syllabus — we nurture critical thinking.
               </p>
             </div>
             <div>

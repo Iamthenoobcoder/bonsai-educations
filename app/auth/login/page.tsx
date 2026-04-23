@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { BookOpen, Users, GraduationCap } from "lucide-react";
 
 export default function LoginPage() {
@@ -50,14 +51,14 @@ export default function LoginPage() {
         <div className="absolute bottom-[-80px] left-[-40px] w-[320px] h-[320px] rounded-full bg-gold/10" />
         
         <div className="text-center relative z-10">
-          <Link href="/" className="w-[72px] h-[72px] rounded-2xl bg-white/15 flex items-center justify-center mx-auto mb-5 border border-white/20 transition-transform hover:scale-105 cursor-pointer">
-            <BookOpen size={32} className="text-white" />
+          <Link href="/" className="w-[72px] h-[72px] rounded-2xl bg-white/15 flex items-center justify-center mx-auto mb-5 border border-white/20 transition-transform hover:scale-105 cursor-pointer overflow-hidden p-2">
+            <Image src="/logo.jpg" alt="Bonsai Logo" width={56} height={56} className="rounded-xl object-contain bg-white" />
           </Link>
           <h1 className="display text-white text-4xl font-bold mb-2.5">BONSAI EDUCATIONS</h1>
           <p className="text-white/65 text-base mb-12 italic">Profound learning. Absolute clarity.</p>
           
           <div className="bg-white/10 border border-white/15 rounded-2xl p-6 px-7 max-w-[320px] text-left mx-auto">
-            <div className="text-gold text-4xl font-serif leading-[0.8] mb-2.5">"</div>
+            <div className="text-gold text-4xl font-serif leading-[0.8] mb-2.5">&quot;</div>
             <p className="text-white/80 text-[13px] leading-[1.8] italic mb-3.5">
               My competitive exam rank improved significantly after joining Bonsai. The faculty is exceptional.
             </p>
@@ -147,7 +148,7 @@ export default function LoginPage() {
           </form>
 
           <p className="text-center mt-5 text-[13px] text-muted">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/auth/signup" className="text-teal-600 font-semibold cursor-pointer hover:underline">
               Sign up
             </Link>

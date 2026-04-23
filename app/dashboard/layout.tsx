@@ -1,7 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { LayoutDashboard, Users, Calendar, LogOut, BookOpen, Bell } from 'lucide-react'
+import Image from 'next/image'
+import { LayoutDashboard, Users, Calendar, LogOut, Bell } from 'lucide-react'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -35,9 +36,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       {/* Sidebar */}
       <aside className="w-[220px] bg-navy flex flex-col py-5 shrink-0">
         <div className="flex items-center gap-2 px-4 pb-5 border-b border-white/10">
-          <div className="w-[30px] h-[30px] rounded-lg bg-teal-600 flex items-center justify-center">
-            <BookOpen size={14} className="text-white" />
-          </div>
+          <Image src="/logo.jpg" alt="Bonsai Logo" width={30} height={30} className="rounded-lg object-contain bg-white" />
           <span className="text-white font-bold text-[13px] tracking-wide">BONSAI</span>
         </div>
         
@@ -93,7 +92,6 @@ export default async function DashboardLayout({ children }: { children: React.Re
           <div className="flex items-center gap-3.5">
             <div className="relative cursor-pointer">
               <Bell size={18} className="text-muted hover:text-navy transition-colors" />
-              <div className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500 border-2 border-white" />
             </div>
             <div className="w-[34px] h-[34px] rounded-lg bg-navy flex items-center justify-center text-white text-xs font-bold">
               {initials}
