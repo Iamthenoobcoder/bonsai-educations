@@ -49,29 +49,63 @@ export default function LandingPage() {
   return (
     <div className="overflow-x-hidden text-gray-900 bg-white">
       {/* NAV */}
-      <nav
-        style={{
-          background: scrolled ? "rgba(255,255,255,.95)" : "var(--color-navy)",
-          borderBottom: scrolled ? "1px solid var(--color-border)" : "none",
-        }}
-        className="sticky top-0 z-50 flex items-center justify-between h-16 px-6 md:px-[5%] backdrop-blur-md transition-all duration-300"
-      >
-        <div className="flex items-center gap-3">
-          <Image src="/logo.jpg" alt="Bonsai Logo" width={34} height={34} className="rounded-lg object-contain bg-white" />
-          <span className={`font-bold text-[15px] tracking-wide ${scrolled ? "text-navy" : "text-white"}`}>
-            BONSAI EDUCATIONS
-          </span>
-        </div>
+      <div className="fixed top-0 left-0 right-0 z-50 p-4 flex justify-center">
+        <nav
+          className={`w-full max-w-6xl flex items-center justify-between px-6 py-3.5 rounded-full transition-all duration-300 backdrop-blur-md border ${
+            scrolled
+              ? "bg-white/90 border-zinc-200/80 shadow-[0_8px_30px_rgb(0,0,0,0.06)] text-navy"
+              : "bg-navy/80 border-white/10 shadow-none text-white"
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <Image src="/logo.jpg" alt="Bonsai Logo" width={32} height={32} className="rounded-lg object-contain bg-white" />
+            <span className="font-bold text-[14px] tracking-wide">
+              BONSAI EDUCATIONS
+            </span>
+          </div>
 
-        <div className="flex gap-3">
-          <Link href="/auth/login" className={`px-5 py-2 text-sm font-medium rounded-lg border-2 transition-all ${scrolled ? "border-gray-200 text-navy hover:bg-gray-50" : "border-white/50 text-white hover:bg-white/10 hover:border-white/80"}`}>
-            Sign In
-          </Link>
-          <Link href="/auth/signup" className="px-5 py-2 text-sm font-semibold rounded-lg bg-teal-600 text-white hover:bg-teal-700 hover:-translate-y-0.5 transition-all shadow-md shadow-teal-600/30">
-            Enroll Now
-          </Link>
-        </div>
-      </nav>
+          <div className="hidden md:flex items-center gap-6">
+            {[
+              { label: "About", href: "#about" },
+              { label: "Courses", href: "#courses" },
+              { label: "Faculty", href: "#faculty" },
+              { label: "Results", href: "#results" },
+            ].map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`text-sm font-medium transition-all duration-200 relative group py-1.5 px-3 rounded-full ${
+                  scrolled
+                    ? "text-gray-600 hover:text-navy hover:bg-zinc-100"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                }`}
+              >
+                {link.label}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-teal-500 transition-all duration-300 group-hover:w-1/2" />
+              </Link>
+            ))}
+          </div>
+
+          <div className="flex gap-3">
+            <Link
+              href="/auth/login"
+              className={`px-4 py-2 text-xs font-semibold rounded-full border transition-all duration-200 ${
+                scrolled
+                  ? "border-zinc-200 text-navy hover:bg-zinc-50"
+                  : "border-white/20 text-white hover:bg-white/10"
+              }`}
+            >
+              Sign In
+            </Link>
+            <Link
+              href="/auth/signup"
+              className="px-4 py-2 text-xs font-semibold rounded-full bg-teal-600 text-white hover:bg-teal-700 transition-all duration-200 shadow-md shadow-teal-600/20"
+            >
+              Enroll Now
+            </Link>
+          </div>
+        </nav>
+      </div>
 
       {/* HERO */}
       <section
@@ -79,7 +113,7 @@ export default function LandingPage() {
           background: "linear-gradient(135deg, var(--color-navy) 0%, #163a5c 50%, var(--color-teal) 100%)",
           backgroundSize: "200% 200%",
         }}
-        className="relative min-h-[560px] px-6 md:px-[5%] py-[72px] pb-[60px] overflow-hidden flex flex-col md:flex-row items-center gap-12"
+        className="relative min-h-[560px] px-6 md:px-[5%] pt-[110px] pb-[60px] overflow-hidden flex flex-col md:flex-row items-center gap-12"
       >
         <div className="absolute top-[-80px] right-[25%] w-[320px] h-[320px] rounded-full bg-[rgba(15,110,86,.2)] blur-[60px] animate-[pulse_5s_ease-in-out_infinite]" />
         <div className="absolute bottom-[-60px] left-[10%] w-[240px] h-[240px] rounded-full bg-[rgba(201,148,10,.15)] blur-[50px] animate-[pulse_6s_ease-in-out_infinite_.5s]" />
@@ -101,7 +135,7 @@ export default function LandingPage() {
             <Link href="/auth/login" className="px-8 py-3.5 rounded-lg bg-teal-600 text-white font-semibold text-[15px] hover:bg-teal-700 hover:-translate-y-0.5 transition-all shadow-lg shadow-teal-600/30">
               Sign In to Portal
             </Link>
-            <Link href="#about" className="px-8 py-3.5 rounded-lg border-2 border-white/50 text-white font-medium text-[15px] hover:bg-white/10 hover:border-white/80 transition-all">
+            <Link href="#courses" className="px-8 py-3.5 rounded-lg border-2 border-white/50 text-white font-medium text-[15px] hover:bg-white/10 hover:border-white/80 transition-all">
               Explore Courses ↓
             </Link>
           </div>
@@ -163,7 +197,7 @@ export default function LandingPage() {
       </section>
 
       {/* FEATURE CARDS */}
-      <section className="py-20 px-6 md:px-[5%] bg-surface">
+      <section id="courses" className="py-20 px-6 md:px-[5%] bg-surface">
         <div className="text-center mb-12">
           <span className="text-teal-600 text-[13px] font-semibold tracking-widest uppercase">Why Choose Us</span>
           <h2 className="display text-[38px] font-bold text-navy mt-2.5">What sets us apart</h2>
@@ -182,7 +216,7 @@ export default function LandingPage() {
       </section>
 
       {/* ACHIEVEMENTS */}
-      <section className="py-20 px-6 md:px-[5%] bg-white">
+      <section id="results" className="py-20 px-6 md:px-[5%] bg-white">
         <div className="text-center mb-12">
           <span className="text-gold text-[13px] font-semibold tracking-widest uppercase">Our Students Excel</span>
           <h2 className="display text-[38px] font-bold text-navy mt-2.5">A Record of Excellence</h2>
@@ -207,7 +241,7 @@ export default function LandingPage() {
       </section>
 
       {/* FACULTY */}
-      <section className="py-20 px-6 md:px-[5%] bg-gradient-to-b from-navy to-[#163a5c]">
+      <section id="faculty" className="py-20 px-6 md:px-[5%] bg-gradient-to-b from-navy to-[#163a5c]">
         <div className="text-center mb-12">
           <span className="text-white/50 text-[13px] font-semibold tracking-widest uppercase">The Team</span>
           <h2 className="display text-[38px] font-bold text-white mt-2.5">Meet Our Faculty</h2>
