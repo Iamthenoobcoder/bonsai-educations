@@ -303,7 +303,7 @@ export default function LandingPage() {
       {/* FOOTER */}
       <footer className="bg-navy pt-14 pb-7 border-t-[3px] border-teal-600">
         <div className="max-w-7xl mx-auto px-6 md:px-[5%]">
-          <div className="grid md:grid-cols-[2fr_1fr_1.5fr] gap-10 mb-10">
+          <div className="grid md:grid-cols-[2fr_1.5fr] gap-10 mb-10">
             <div>
               <div className="flex items-center gap-2.5 mb-4">
               <Image src="/logo.jpg" alt="Bonsai Logo" width={32} height={32} className="rounded-lg object-contain bg-white" />
@@ -312,16 +312,6 @@ export default function LandingPage() {
               <p className="text-white/60 text-[13.5px] leading-[1.8] max-w-[380px]">
                 Empowering minds and shaping the leaders of tomorrow through unparalleled educational standards. We don&apos;t just teach the syllabus — we nurture critical thinking.
               </p>
-            </div>
-            <div>
-              <p className="text-white/40 text-[11px] font-bold tracking-widest uppercase mb-5">Quick Links</p>
-              <div className="flex flex-col gap-3">
-                {["About Us", "Courses", "Faculty", "Results", "Contact Us", "Student Portal"].map((l) => (
-                  <Link key={l} href={l === "Student Portal" ? "/auth/login" : `#${l.toLowerCase().replace(" ", "-")}`} className="text-white/60 hover:text-white text-[13px] w-fit transition-colors">
-                    {l}
-                  </Link>
-                ))}
-              </div>
             </div>
             <div>
               <p className="text-white/40 text-[11px] font-bold tracking-widest uppercase mb-5">Contact</p>
