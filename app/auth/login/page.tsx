@@ -29,6 +29,13 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
 
+    if (process.env.NEXT_PUBLIC_SUPABASE_URL?.includes('dummy')) {
+      document.cookie = `sb-role=${role}; path=/; max-age=86400`;
+      router.push("/dashboard");
+      router.refresh();
+      return;
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,

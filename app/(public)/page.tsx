@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, Users, TrendingUp, Check, Star, Trophy } from "lucide-react";
+import { BookOpen, Users, TrendingUp, Check, Trophy } from "lucide-react";
 
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
@@ -62,13 +62,7 @@ export default function LandingPage() {
             BONSAI EDUCATIONS
           </span>
         </div>
-        <div className="hidden md:flex items-center gap-8">
-          {["About", "Courses", "Faculty", "Results"].map((l) => (
-            <span key={l} className={`text-sm font-medium cursor-pointer transition-colors ${scrolled ? "text-gray-600 hover:text-navy" : "text-white/75 hover:text-white"}`}>
-              {l}
-            </span>
-          ))}
-        </div>
+
         <div className="flex gap-3">
           <Link href="/auth/login" className={`px-5 py-2 text-sm font-medium rounded-lg border-2 transition-all ${scrolled ? "border-gray-200 text-navy hover:bg-gray-50" : "border-white/50 text-white hover:bg-white/10 hover:border-white/80"}`}>
             Sign In
