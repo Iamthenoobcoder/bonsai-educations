@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, Users, TrendingUp, Check, Trophy, Star } from "lucide-react";
+import { Check, Trophy, Star, Calculator, Atom, FlaskConical, Dna } from "lucide-react";
 
 interface Testimonial {
   quote: string;
@@ -23,11 +23,7 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const features = [
-    { icon: BookOpen, title: "Modern Curriculum", desc: "Adaptive learning pathways engineered for today's competitive examinations and tomorrow's challenges." },
-    { icon: Users, title: "Expert Faculty", desc: "Learn from educators who have shaped top achievers and rank holders consistently." },
-    { icon: TrendingUp, title: "Proven Results", desc: "Consistent excellence across all subjects, with multiple state and district recognitions." },
-  ];
+
 
 
 
@@ -223,20 +219,66 @@ export default function LandingPage() {
 
       {/* FEATURE CARDS */}
       <section id="courses" className="py-20 px-6 md:px-[5%] bg-surface">
-        <div className="text-center mb-12">
-          <span className="text-teal-600 text-[13px] font-semibold tracking-widest uppercase">Why Choose Us</span>
-          <h2 className="display text-[38px] font-bold text-navy mt-2.5">What sets us apart</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {features.map((f) => (
-            <div key={f.title} className="bg-white border border-border rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-navy/5">
-              <div className="w-12 h-12 rounded-xl bg-[#E1F5EE] flex items-center justify-center mb-5 text-teal-600">
-                <f.icon size={22} />
-              </div>
-              <h3 className="text-lg font-bold text-navy mb-2.5">{f.title}</h3>
-              <p className="text-muted text-[14px] leading-relaxed">{f.desc}</p>
+        <div className="max-w-6xl mx-auto grid md:grid-cols-[1fr_2fr] gap-12 items-center">
+          {/* Left Column: Description */}
+          <div className="text-left space-y-5">
+            <div>
+              <span className="text-teal-600 text-[13px] font-semibold tracking-widest uppercase">Academic Programs</span>
+              <h2 className="display text-[38px] font-bold text-navy mt-2.5 leading-tight">Courses We Offer</h2>
+              <div className="h-1 w-16 bg-teal-500 rounded-full mt-4" />
             </div>
-          ))}
+            <p className="text-muted text-base leading-relaxed">
+              At Bonsai, we deliver rigorous, high-impact instruction in core STEM disciplines. Our academic framework is tailored for students from <strong>Class 8th to 11th</strong>, preparing them to excel under the curriculum requirements of major national and international boards:
+            </p>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {["CBSE", "ICSE", "IGCSE (Cambridge)"].map((board) => (
+                <span key={board} className="text-xs font-semibold bg-white border border-border/80 px-3 py-1.5 rounded-full text-navy shadow-sm">
+                  {board}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Grid of Subjects */}
+          <div className="grid sm:grid-cols-2 gap-5">
+            {[
+              {
+                icon: Calculator,
+                title: "Mathematics",
+                desc: "Building deep conceptual understanding from algebraic structures to calculus, fostering problem-solving skills.",
+                color: "bg-blue-500/10 text-blue-600 border-blue-500/10"
+              },
+              {
+                icon: Atom,
+                title: "Physics",
+                desc: "Exploring mechanics, electromagnetism, and physics theories through deductive reasoning and mathematical modeling.",
+                color: "bg-teal-500/10 text-teal-600 border-teal-500/10"
+              },
+              {
+                icon: FlaskConical,
+                title: "Chemistry",
+                desc: "Mastering chemical equations, organic structures, and stoichiometry with clear, structured logic and conceptual clarity.",
+                color: "bg-purple-500/10 text-purple-600 border-purple-500/10"
+              },
+              {
+                icon: Dna,
+                title: "Biology",
+                desc: "Understanding cellular systems, genetics, and anatomical structures, establishing a strong foundation for advanced science pathways.",
+                color: "bg-emerald-500/10 text-emerald-600 border-emerald-500/10"
+              }
+            ].map((subject) => (
+              <div
+                key={subject.title}
+                className="bg-white border border-border/80 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-teal-500/20 hover:shadow-lg hover:shadow-navy/5"
+              >
+                <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 border ${subject.color}`}>
+                  <subject.icon size={20} />
+                </div>
+                <h3 className="text-base font-bold text-navy mb-1.5">{subject.title}</h3>
+                <p className="text-muted text-[13px] leading-relaxed">{subject.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
