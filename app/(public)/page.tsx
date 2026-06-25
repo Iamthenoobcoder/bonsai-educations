@@ -303,6 +303,71 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* FACULTY/DIRECTOR */}
+      <section id="faculty" className="py-20 px-6 md:px-[5%] bg-gradient-to-b from-navy to-[#163a5c]">
+        <div className="text-center mb-12">
+          <span className="text-white/50 text-[13px] font-semibold tracking-widest uppercase">Leadership Profile</span>
+          <h2 className="display text-[38px] font-bold text-white mt-2.5">Board of Directors</h2>
+        </div>
+
+        <div className="w-full max-w-5xl mx-auto bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 text-white shadow-2xl backdrop-blur-sm">
+          <div className="flex flex-col md:flex-row gap-10 md:gap-14 items-start">
+            {/* Left Column: Headshot & Contact */}
+            <div className="w-full md:w-1/3 shrink-0 flex flex-col items-center md:items-start">
+              <div className="relative w-full max-w-[280px] aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl bg-navy/50">
+                <Image
+                  src="/neeraj_gupta_headshot.png"
+                  alt="Neeraj Gupta Headshot"
+                  fill
+                  className="object-cover object-top hover:scale-105 transition-transform duration-500"
+                  sizes="(max-w-768px) 100vw, 280px"
+                  priority
+                />
+              </div>
+              <div className="mt-8 w-full space-y-3.5 border-t border-white/10 pt-6 text-sm text-white/60">
+                <p className="flex items-center gap-3">
+                  <span className="text-teal-400 font-bold">📍</span> Punjab, India
+                </p>
+                <p className="flex items-center gap-3">
+                  <span className="text-teal-400 font-bold">✉️</span> neerajgupta1068@gmail.com
+                </p>
+                <p className="flex items-center gap-3">
+                  <span className="text-teal-400 font-bold">📞</span> (+91) 97819 92924
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column: Bio Narrative */}
+            <div className="flex-1 space-y-6">
+              <div>
+                <span className="text-teal-400 font-semibold tracking-widest text-xs md:text-sm uppercase block mb-1">
+                  Educational Director
+                </span>
+                <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
+                  Neeraj Gupta
+                </h3>
+                <div className="h-1 w-20 bg-teal-500 rounded-full" />
+              </div>
+
+              <div className="space-y-5 text-white/80 leading-relaxed text-sm md:text-base font-light">
+                <p>
+                  <strong>Mr. Neeraj Gupta</strong> is the Educational Director of Bonsai, where he spearheads the academic vision and strategic curriculum pathways. Driven by a lifelong commitment to the education sector, he has dedicated his career to sharing his expertise in mathematics and science. In 2010, he established Bonsai Educational Initiatives to cultivate academic excellence and empower students in Ludhiana, Punjab, to build successful academic futures. Under his guidance, the institution has successfully mentored over 1,000 students to achieve top ranks in board examinations, Olympiads, and competitive entrance tests.
+                </p>
+                <p>
+                  Mr. Gupta holds a post-graduate degree (M.Sc. B.Ed.) in Chemistry from the Department of Chemistry, Punjab University, as well as a Bachelor of Science (B.Sc.) in Chemistry, Physics, and Mathematics from Punjab University. This comprehensive training across mathematics and chemistry has shaped his interdisciplinary approach to pedagogical training.
+                </p>
+                <p>
+                  Prior to leading Bonsai, Mr. Gupta served in key academic capacities across several premier institutions. He was the Head of the Mathematics Department (Guest Faculty) at Sahil Study Circle from 2012 to 2013, directing the integration of practical applications into scientific frameworks for STEM education. From 2011 to 2012, he served as HOD Mathematics at Dr. RC Drishti Jain School, leading curriculum design for science streams. He also served as a Special Trainer for Board Exams at Manav Rachna International School from 2017 to 2018, where he designed specialized pedagogical systems that significantly improved student outcomes.
+                </p>
+                <p>
+                  Mr. Gupta is an active outdoor enthusiast who successfully trekked to the Everest Base Camp in June 2023. He was also a civil service aspirant, appearing for the Civil Services Examination in 2021. In recognition of his teaching excellence and leadership in education, he was honored with the Academic Excellence Award at the Global Teaching Excellence Awards (GTEA) in 2022. He is fluent in English, Hindi, and Punjabi.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ACHIEVEMENTS / RESULTS */}
       <section id="results" className="py-20 px-6 md:px-[5%] bg-white">
         <div className="text-center mb-12">
@@ -498,71 +563,6 @@ export default function LandingPage() {
           </div>
         </div>
       )}
-
-      {/* FACULTY/DIRECTOR */}
-      <section id="faculty" className="py-20 px-6 md:px-[5%] bg-gradient-to-b from-navy to-[#163a5c]">
-        <div className="text-center mb-12">
-          <span className="text-white/50 text-[13px] font-semibold tracking-widest uppercase">Leadership Profile</span>
-          <h2 className="display text-[38px] font-bold text-white mt-2.5">Board of Directors</h2>
-        </div>
-
-        <div className="w-full max-w-5xl mx-auto bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 text-white shadow-2xl backdrop-blur-sm">
-          <div className="flex flex-col md:flex-row gap-10 md:gap-14 items-start">
-            {/* Left Column: Headshot & Contact */}
-            <div className="w-full md:w-1/3 shrink-0 flex flex-col items-center md:items-start">
-              <div className="relative w-full max-w-[280px] aspect-[3/4] rounded-2xl overflow-hidden border-2 border-white/10 shadow-2xl bg-navy/50">
-                <Image
-                  src="/neeraj_gupta_headshot.png"
-                  alt="Neeraj Gupta Headshot"
-                  fill
-                  className="object-cover object-top hover:scale-105 transition-transform duration-500"
-                  sizes="(max-w-768px) 100vw, 280px"
-                  priority
-                />
-              </div>
-              <div className="mt-8 w-full space-y-3.5 border-t border-white/10 pt-6 text-sm text-white/60">
-                <p className="flex items-center gap-3">
-                  <span className="text-teal-400 font-bold">📍</span> Punjab, India
-                </p>
-                <p className="flex items-center gap-3">
-                  <span className="text-teal-400 font-bold">✉️</span> neerajgupta1068@gmail.com
-                </p>
-                <p className="flex items-center gap-3">
-                  <span className="text-teal-400 font-bold">📞</span> (+91) 97819 92924
-                </p>
-              </div>
-            </div>
-
-            {/* Right Column: Bio Narrative */}
-            <div className="flex-1 space-y-6">
-              <div>
-                <span className="text-teal-400 font-semibold tracking-widest text-xs md:text-sm uppercase block mb-1">
-                  Educational Director
-                </span>
-                <h3 className="text-3xl md:text-4xl font-extrabold tracking-tight text-white mb-2">
-                  Neeraj Gupta
-                </h3>
-                <div className="h-1 w-20 bg-teal-500 rounded-full" />
-              </div>
-
-              <div className="space-y-5 text-white/80 leading-relaxed text-sm md:text-base font-light">
-                <p>
-                  <strong>Mr. Neeraj Gupta</strong> is the Educational Director of Bonsai, where he spearheads the academic vision and strategic curriculum pathways. Driven by a lifelong commitment to the education sector, he has dedicated his career to sharing his expertise in mathematics and science. In 2010, he established Bonsai Educational Initiatives to cultivate academic excellence and empower students in Ludhiana, Punjab, to build successful academic futures. Under his guidance, the institution has successfully mentored over 1,000 students to achieve top ranks in board examinations, Olympiads, and competitive entrance tests.
-                </p>
-                <p>
-                  Mr. Gupta holds a post-graduate degree (M.Sc. B.Ed.) in Chemistry from the Department of Chemistry, Punjab University, as well as a Bachelor of Science (B.Sc.) in Chemistry, Physics, and Mathematics from Punjab University. This comprehensive training across mathematics and chemistry has shaped his interdisciplinary approach to pedagogical training.
-                </p>
-                <p>
-                  Prior to leading Bonsai, Mr. Gupta served in key academic capacities across several premier institutions. He was the Head of the Mathematics Department (Guest Faculty) at Sahil Study Circle from 2012 to 2013, directing the integration of practical applications into scientific frameworks for STEM education. From 2011 to 2012, he served as HOD Mathematics at Dr. RC Drishti Jain School, leading curriculum design for science streams. He also served as a Special Trainer for Board Exams at Manav Rachna International School from 2017 to 2018, where he designed specialized pedagogical systems that significantly improved student outcomes.
-                </p>
-                <p>
-                  Mr. Gupta is an active outdoor enthusiast who successfully trekked to the Everest Base Camp in June 2023. He was also a civil service aspirant, appearing for the Civil Services Examination in 2021. In recognition of his teaching excellence and leadership in education, he was honored with the Academic Excellence Award at the Global Teaching Excellence Awards (GTEA) in 2022. He is fluent in English, Hindi, and Punjabi.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* TESTIMONIALS */}
       <section className="py-20 bg-surface overflow-hidden">
