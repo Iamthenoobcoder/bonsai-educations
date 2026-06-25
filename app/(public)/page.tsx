@@ -21,12 +21,7 @@ export default function LandingPage() {
     { icon: TrendingUp, title: "Proven Results", desc: "Consistent excellence across all subjects, with multiple state and district recognitions." },
   ];
 
-  const faculty = [
-    { name: "Dr. Rajesh Kumar", sub: "Mathematics", qual: "Ph.D, IIT Delhi", init: "RK", color: "#1e3a5f" },
-    { name: "Ms. Priya Sharma", sub: "Physics", qual: "M.Sc., B.Ed.", init: "PS", color: "#0F6E56" },
-    { name: "Mr. Anil Kapoor", sub: "Chemistry", qual: "M.Sc., Experienced", init: "AK", color: "#7c3aed" },
-    { name: "Mrs. Sunita Rao", sub: "English", qual: "M.A., B.Ed.", init: "SR", color: "#b45309" },
-  ];
+
 
   const toppers = [
     { name: "Arjun Mehta", score: "Top Scorer", year: "Recent", stream: "PCM", rank: "State Ranked" },
@@ -240,23 +235,171 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* FACULTY */}
+      {/* FACULTY/DIRECTOR */}
       <section id="faculty" className="py-20 px-6 md:px-[5%] bg-gradient-to-b from-navy to-[#163a5c]">
         <div className="text-center mb-12">
-          <span className="text-white/50 text-[13px] font-semibold tracking-widest uppercase">The Team</span>
-          <h2 className="display text-[38px] font-bold text-white mt-2.5">Meet Our Faculty</h2>
+          <span className="text-white/50 text-[13px] font-semibold tracking-widest uppercase">The Leadership</span>
+          <h2 className="display text-[38px] font-bold text-white mt-2.5">Educational Director</h2>
         </div>
-        <div className="grid md:grid-cols-4 gap-5">
-          {faculty.map((f) => (
-            <div key={f.name} className="bg-white/5 border border-white/10 rounded-2xl p-7 text-center transition-colors hover:bg-white/10">
-              <div style={{ background: f.color }} className="w-[60px] h-[60px] rounded-2xl mx-auto flex items-center justify-center text-white font-bold text-lg mb-3.5">
-                {f.init}
-              </div>
-              <p className="text-white font-semibold text-[15px] mb-1">{f.name}</p>
-              <p className="text-teal-400 text-[13px] font-medium mb-1">{f.sub}</p>
-              <p className="text-white/40 text-xs">{f.qual}</p>
+
+        <div className="w-full max-w-5xl mx-auto bg-white/5 border border-white/10 rounded-3xl p-6 md:p-10 text-white shadow-2xl backdrop-blur-sm">
+          {/* Header Row */}
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6 pb-8 border-b border-white/10">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-500 flex items-center justify-center text-navy font-bold text-3xl shadow-lg shrink-0">
+              NG
             </div>
-          ))}
+            <div className="flex-1">
+              <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white">Neeraj Gupta</h3>
+              <p className="text-teal-400 font-medium mt-1 text-sm md:text-base">
+                Educational Director at Bonsai | PostGrad @Punjab University
+              </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4 text-white/60 text-xs md:text-sm">
+                <span className="flex items-center gap-1.5">📍 Punjab, India</span>
+                <span className="flex items-center gap-1.5">📞 (+91) 97819 92924</span>
+                <span className="flex items-center gap-1.5">✉️ neerajgupta1068@gmail.com</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Grid Content */}
+          <div className="grid md:grid-cols-3 gap-10 mt-8">
+            {/* Left/Middle Column - Bio, Experience & Education */}
+            <div className="md:col-span-2 space-y-8">
+              {/* Bio */}
+              <div>
+                <p className="text-white/80 leading-relaxed text-sm md:text-base italic">
+                  &quot;Ever since I remember, I have envisioned contributing in the educational sector with my expertise in mathematics and science. Currently, this vision is manifested by my institution Bonsai that thrives on students&apos; academic excellence and helping them shape a better future.&quot;
+                </p>
+              </div>
+
+              {/* Professional Experience */}
+              <div>
+                <h4 className="text-xs font-bold tracking-widest text-teal-400 uppercase mb-4">Professional Experience</h4>
+                <div className="space-y-6">
+                  {[
+                    {
+                      title: "Director",
+                      company: "Bonsai Educational Initiatives",
+                      period: "Since 2010",
+                      desc: "Has helped over 1000 students achieve their academic goals through comprehensive educational training for entrance examinations and olympiads."
+                    },
+                    {
+                      title: "Special Trainer for Board Exams",
+                      company: "Manav Rachna International School",
+                      period: "March 2017 - March 2018",
+                      desc: "Prepared a rigorous yet practical pedagogy for students to practice for their crucial board examinations and helping them achieve positive results."
+                    },
+                    {
+                      title: "HOD Mathematics - Guest Faculty",
+                      company: "Sahil Study Circle",
+                      period: "March 2012 - March 2013",
+                      desc: "Directed the Institution on integration of practical expertise into scientific theories for a better learning experience for students pursuing higher education in STEM."
+                    },
+                    {
+                      title: "HOD Mathematics - Guest Faculty",
+                      company: "Dr. RC Drishti Jain School",
+                      period: "March 2011 - March 2012",
+                      desc: "First hand teaching experience, and led academic curriculum preparation for science students."
+                    }
+                  ].map((exp, idx) => (
+                    <div key={idx} className="relative pl-5 border-l-2 border-teal-500/30 hover:border-teal-400 transition-colors">
+                      <div className="absolute w-2 h-2 rounded-full bg-teal-500 left-[-5px] top-1.5" />
+                      <div className="flex justify-between items-baseline flex-wrap gap-2">
+                        <span className="font-bold text-[15px] text-white">{exp.company}</span>
+                        <span className="text-[11px] font-semibold text-white/40 uppercase tracking-wider">{exp.period}</span>
+                      </div>
+                      <p className="text-xs text-teal-300 font-medium mt-0.5">{exp.title}</p>
+                      <p className="text-white/70 text-xs md:text-sm mt-1.5 leading-relaxed">{exp.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Education */}
+              <div>
+                <h4 className="text-xs font-bold tracking-widest text-teal-400 uppercase mb-4">Education</h4>
+                <div className="space-y-4">
+                  {[
+                    {
+                      degree: "M.Sc B.Ed Chemistry",
+                      inst: "Department of Chemistry, Punjab University",
+                      period: "July 2011 - May 2013"
+                    },
+                    {
+                      degree: "B.Sc Chemistry, Physics, Mathematics",
+                      inst: "Punjab University",
+                      period: "July 2006 - May 2009"
+                    }
+                  ].map((edu, idx) => (
+                    <div key={idx} className="border-l-2 border-amber-500/30 pl-5 relative">
+                      <div className="absolute w-2 h-2 rounded-full bg-amber-500 left-[-5px] top-1.5" />
+                      <div className="flex justify-between items-baseline flex-wrap gap-2">
+                        <span className="font-bold text-[15px] text-white">{edu.inst}</span>
+                        <span className="text-[11px] font-semibold text-white/40">{edu.period}</span>
+                      </div>
+                      <p className="text-xs text-amber-300 font-medium mt-0.5">{edu.degree}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Skills, Achievements, Languages */}
+            <div className="space-y-8">
+              {/* Skills */}
+              <div>
+                <h4 className="text-xs font-bold tracking-widest text-teal-400 uppercase mb-4">Skills</h4>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "Practical Pedagogy",
+                    "Data Analysis",
+                    "Interpersonal Skills",
+                    "Problem Solving",
+                    "Team Management",
+                    "Written Communication"
+                  ].map((skill) => (
+                    <span key={skill} className="text-xs bg-white/10 border border-white/10 px-3 py-1.5 rounded-full hover:bg-white/20 transition-colors">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Achievements */}
+              <div>
+                <h4 className="text-xs font-bold tracking-widest text-teal-400 uppercase mb-4">Other Achievements</h4>
+                <div className="space-y-4">
+                  {[
+                    { title: "Trek to Everest Base Camp", subtitle: "June 2023" },
+                    { title: "Academic Excellence Award, GTEA", subtitle: "2022" },
+                    { title: "Appeared for Civil Services Examination", subtitle: "2021 · India's toughest government services exam (over 10 lakh aspirants)" }
+                  ].map((ach, idx) => (
+                    <div key={idx} className="bg-white/5 border border-white/5 p-3.5 rounded-xl hover:bg-white/10 transition-colors">
+                      <p className="font-semibold text-xs md:text-sm text-white">{ach.title}</p>
+                      <p className="text-white/50 text-[11px] mt-1">{ach.subtitle}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Languages */}
+              <div>
+                <h4 className="text-xs font-bold tracking-widest text-teal-400 uppercase mb-4">Languages</h4>
+                <div className="space-y-2">
+                  {[
+                    { lang: "English", prof: "Native Bilingual" },
+                    { lang: "Hindi", prof: "Native Fluency" },
+                    { lang: "Punjabi", prof: "Native Fluency" }
+                  ].map((l) => (
+                    <div key={l.lang} className="flex justify-between items-center text-xs md:text-sm">
+                      <span className="font-medium text-white">{l.lang}</span>
+                      <span className="text-teal-400 text-xs">{l.prof}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
