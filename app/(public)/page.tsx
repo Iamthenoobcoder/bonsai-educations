@@ -188,26 +188,33 @@ export default function LandingPage() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="py-20 px-6 md:px-[5%] bg-white flex flex-col items-center text-center">
-        <div className="max-w-3xl mx-auto">
-          <div className="flex items-center justify-center gap-2.5 mb-4">
-            <div className="w-[3px] h-8 bg-gold rounded-full" />
-            <span className="text-gold text-[13px] font-semibold tracking-widest uppercase">About Us</span>
+      <section id="about" className="py-20 px-6 md:px-[5%] bg-white">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-[1.6fr_1fr] gap-10 md:gap-16 items-center">
+          <div className="text-left">
+            <div className="flex items-center gap-2.5 mb-4">
+              <div className="w-[3px] h-8 bg-gold rounded-full" />
+              <span className="text-gold text-[13px] font-semibold tracking-widest uppercase">About Us</span>
+            </div>
+            <h2 className="display text-[40px] font-bold text-navy mb-5 leading-tight">A legacy of brilliant minds.</h2>
+            <p className="text-muted text-base leading-[1.8] mb-4">
+              Founded in 2009, Bonsai Educations has grown to become Ludhiana&apos;s most trusted name in secondary and senior secondary coaching. We don&apos;t just teach the syllabus — we nurture critical thinking and build lasting subject mastery.
+            </p>
+            <p className="text-muted text-base leading-[1.8]">
+              Located at 157-I, Sarabha Nagar, our campus serves students from Class 8 through 12 across Science, Commerce, and Arts streams.
+            </p>
           </div>
-          <h2 className="display text-[40px] font-bold text-navy mb-5 leading-tight">A legacy of brilliant minds.</h2>
-          <p className="text-muted text-base leading-[1.8] mb-4">
-            Founded in 2009, Bonsai Educations has grown to become Ludhiana&apos;s most trusted name in secondary and senior secondary coaching. We don&apos;t just teach the syllabus — we nurture critical thinking and build lasting subject mastery.
-          </p>
-          <p className="text-muted text-base leading-[1.8] mb-8">
-            Located at 157-I, Sarabha Nagar, our campus serves students from Class 8 through 12 across Science, Commerce, and Arts streams.
-          </p>
-          <div className="flex flex-col md:flex-row justify-center gap-5 md:gap-8 mt-6">
-            {["Focused batch sizes for personal engagement", "Personalised attention and doubt-clearing sessions", "Regular mock exams aligned to board patterns"].map((t) => (
-              <div key={t} className="flex items-center gap-2.5">
-                <div className="w-5 h-5 rounded bg-teal-600 flex items-center justify-center shrink-0">
+          
+          <div className="flex flex-col gap-5 border-l-2 border-zinc-100 pl-6 md:pl-8 py-2">
+            {[
+              "Focused batch sizes for personal engagement",
+              "Personalised attention and doubt-clearing sessions",
+              "Regular mock exams aligned to board patterns"
+            ].map((t) => (
+              <div key={t} className="flex items-start gap-3.5">
+                <div className="w-5 h-5 rounded bg-teal-600 flex items-center justify-center shrink-0 mt-0.5">
                   <Check size={12} className="text-white" strokeWidth={3} />
                 </div>
-                <span className="text-[14px] text-gray-700 text-left">{t}</span>
+                <span className="text-[14.5px] text-gray-700 leading-normal text-left">{t}</span>
               </div>
             ))}
           </div>
