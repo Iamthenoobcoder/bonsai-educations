@@ -3,11 +3,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { BookOpen, Users, TrendingUp, Check, Trophy } from "lucide-react";
+import { BookOpen, Users, TrendingUp, Check, Trophy, Star } from "lucide-react";
 
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
-  const [activeTestimonial, setActiveTestimonial] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -31,15 +30,42 @@ export default function LandingPage() {
   ];
 
   const testimonials = [
-    { quote: "Bonsai transformed my daughter's understanding of Mathematics. She went from struggling to excelling in boards.", name: "Pradeep Verma", role: "Parent" },
-    { quote: "The faculty here genuinely cares. My competitive exam rank improved drastically after joining Bonsai.", name: "Aryan Singh", role: "Engineering Aspirant" },
-    { quote: "Best institute in Ludhiana for Science students. Clear concepts, regular tests, and personal attention.", name: "Meera Patel", role: "Student" },
+    {
+      quote: "BONSAI Educational Initiatives is a excellent platform for enhancing your learning skills. Their approach towards imparting education is both novel & holistic. We have benefited immensely in improving our understanding of Science & Mathematics through their teachings.",
+      name: "Saumya Sarup & Shubhra Sarup",
+      role: "Class 9, ICSE, Mayo College, Ajmer",
+      rating: 5,
+      init: "SS"
+    },
+    {
+      quote: "I have studied at Bonsai Educational Initiatives for the academic year 2018-19. I had a very clear and positive experience there, and my grades were good too. My elder brother Salil Garg, cousin Rahul Garg, and younger cousin Naman Garg all studied at this institute and showed excellent results.",
+      name: "Archita Garg & Sibling Stories",
+      role: "Alumni & Student Families",
+      rating: 5,
+      init: "AG"
+    },
+    {
+      quote: "Bonsai has been a great institute in shaping my career. The tremendous hard work of teachers to explain every small detail in clarity, the balanced pressure to complete homework, the efficient guidance for board exams and the timely manner to complete the course work way ahead of time - All thanks to Bonsai and Neeraj Sir for being so kind in raising young minds. Thank you so much.",
+      name: "Sahiba Libra",
+      role: "Alumni",
+      rating: 5,
+      init: "SL"
+    },
+    {
+      quote: "I joined Bonsai when I was in seventh standard that is in 2011 and continued my journey being a student at Bonsai till 10th Standard, that is 2015. I studied at Bonsai for four years. The experience cannot be expressed, depicted and described. When I joined Bonsai, I used to be afraid of maths and science. I did not used to have a clear vision on how to approach towards difficult and complex questions but after becoming a part of Bonsai, I can proudly say that my concepts and basics got clear right from the beginning, and I was able to see a significant amount of growth and improvement in myself.",
+      name: "Harsidak Pal Singh",
+      role: "Student (2011 - 2015)",
+      rating: 5,
+      init: "HP"
+    },
+    {
+      quote: "Bonsai educational initiatives have always done a phenomenal job by inculcating the ability in students to learn and build strong foundational knowledge. This institute has instilled a love for learning through their well prepared assignments, practice papers and test series. I will forever be thankful and indebted to the teaching staff for transforming me in my educational journey.",
+      name: "Ishika Madaan",
+      role: "B.Sc. Biotechnology Alumni",
+      rating: 5,
+      init: "IM"
+    }
   ];
-
-  useEffect(() => {
-    const t = setInterval(() => setActiveTestimonial((p) => (p + 1) % testimonials.length), 4000);
-    return () => clearInterval(t);
-  }, [testimonials.length]);
 
   return (
     <div className="overflow-x-hidden text-gray-900 bg-white">
@@ -301,42 +327,48 @@ export default function LandingPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-20 px-6 md:px-[5%] bg-surface overflow-hidden">
+      <section className="py-20 bg-surface overflow-hidden">
         <div className="text-center mb-12">
-          <h2 className="display text-[38px] font-bold text-navy">What our students say</h2>
+          <span className="text-teal-600 text-[13px] font-semibold tracking-widest uppercase">Success Stories</span>
+          <h2 className="display text-[38px] font-bold text-navy mt-2.5">What Our Students Say</h2>
         </div>
-        <div className="flex flex-col md:flex-row justify-center gap-6 max-w-5xl mx-auto">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="bg-white border border-border rounded-2xl p-8 flex-1 transition-all duration-400"
-              style={{
-                opacity: i === activeTestimonial ? 1 : 0.6,
-                transform: i === activeTestimonial ? "scale(1.02)" : "scale(0.98)",
-              }}
-            >
-              <div className="text-gold text-5xl leading-[0.8] mb-4 font-serif">&quot;</div>
-              <p className="text-gray-700 text-[14px] leading-[1.85] mb-5 italic">{t.quote}</p>
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-navy flex items-center justify-center text-white text-xs font-bold">
-                  {t.name.split(" ").map((n) => n[0]).join("")}
-                </div>
+
+        {/* Marquee Wrapper */}
+        <div className="relative w-full overflow-hidden py-4 select-none">
+          {/* Left and Right Gradient Fades */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none" />
+
+          {/* Scrolling Track */}
+          <div className="animate-marquee hover:[animation-play-state:paused] flex gap-6 w-max px-6">
+            {[...testimonials, ...testimonials].map((t, i) => (
+              <div
+                key={i}
+                className="bg-white border border-border/80 rounded-2xl p-6 md:p-8 w-[320px] md:w-[420px] shrink-0 transition-all duration-300 hover:border-teal-500/30 hover:shadow-lg hover:shadow-navy/5 flex flex-col justify-between"
+              >
                 <div>
-                  <p className="font-semibold text-[13px] text-navy">{t.name}</p>
-                  <p className="text-muted text-xs">{t.role}</p>
+                  {/* Star Rating */}
+                  <div className="flex gap-1 text-gold mb-4">
+                    {Array.from({ length: t.rating }).map((_, s) => (
+                      <Star key={s} size={14} fill="currentColor" strokeWidth={0} />
+                    ))}
+                  </div>
+                  <p className="text-gray-700 text-[13px] md:text-[14px] leading-[1.75] italic mb-6">
+                    &quot;{t.quote}&quot;
+                  </p>
+                </div>
+                <div className="flex items-center gap-3 border-t border-zinc-100 pt-4 mt-auto">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-navy to-teal-700 flex items-center justify-center text-white text-sm font-bold shrink-0 shadow-md">
+                    {t.init}
+                  </div>
+                  <div>
+                    <p className="font-bold text-[13px] md:text-[14px] text-navy leading-tight">{t.name}</p>
+                    <p className="text-muted text-[11px] md:text-xs mt-0.5">{t.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-center gap-2 mt-7">
-          {[0, 1, 2].map((i) => (
-            <div
-              key={i}
-              onClick={() => setActiveTestimonial(i)}
-              className={`h-2 rounded-full cursor-pointer transition-all duration-300 ${i === activeTestimonial ? "w-6 bg-teal-600" : "w-2 bg-border"}`}
-            />
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
