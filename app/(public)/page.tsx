@@ -5,8 +5,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { BookOpen, Users, TrendingUp, Check, Trophy, Star } from "lucide-react";
 
+interface Testimonial {
+  quote: string;
+  name: string;
+  role: string;
+  rating: number;
+  init: string;
+}
+
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
+  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -340,11 +349,12 @@ export default function LandingPage() {
           <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none" />
 
           {/* Scrolling Track */}
-          <div className="animate-marquee hover:[animation-play-state:paused] flex gap-6 w-max px-6">
+          <div className={`animate-marquee flex gap-6 w-max px-6 ${selectedTestimonial ? "[animation-play-state:paused]" : "hover:[animation-play-state:paused]"}`}>
             {[...testimonials, ...testimonials].map((t, i) => (
               <div
                 key={i}
-                className="bg-white border border-border/80 rounded-2xl p-6 md:p-8 w-[320px] md:w-[420px] shrink-0 transition-all duration-300 hover:border-teal-500/30 hover:shadow-lg hover:shadow-navy/5 flex flex-col justify-between"
+                onClick={() => setSelectedTestimonial(t)}
+                className="bg-white border border-border/80 rounded-2xl p-6 md:p-8 w-[320px] md:w-[420px] shrink-0 transition-all duration-300 hover:border-teal-500/30 hover:shadow-lg hover:shadow-navy/5 flex flex-col justify-between cursor-pointer hover:scale-[1.02] transform"
               >
                 <div>
                   {/* Star Rating */}
@@ -371,6 +381,55 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Testimonial Zoom-in Modal */}
+      {selectedTestimonial && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy/60 backdrop-blur-md transition-opacity duration-300 animate-[fadeIn_0.2s_ease-out]"
+          onClick={() => setSelectedTestimonial(null)}
+        >
+          <div
+            className="bg-white border border-zinc-200/80 rounded-3xl p-8 md:p-10 max-w-lg w-full shadow-2xl relative animate-[count_0.3s_cubic-bezier(0.34,1.56,0.64,1)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedTestimonial(null)}
+              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-500 hover:text-navy flex items-center justify-center transition-colors text-lg font-bold"
+              aria-label="Close modal"
+            >
+              ×
+            </button>
+
+            {/* Star Rating */}
+            <div className="flex gap-1 text-gold mb-5">
+              {Array.from({ length: selectedTestimonial.rating }).map((_, s) => (
+                <Star key={s} size={18} fill="currentColor" strokeWidth={0} />
+              ))}
+            </div>
+
+            {/* Quote */}
+            <p className="text-navy text-base md:text-lg leading-relaxed font-light italic mb-8">
+              &quot;{selectedTestimonial.quote}&quot;
+            </p>
+
+            {/* Author */}
+            <div className="flex items-center gap-4 border-t border-zinc-100 pt-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-navy to-teal-700 flex items-center justify-center text-white text-sm font-bold shrink-0 shadow-md">
+                {selectedTestimonial.init}
+              </div>
+              <div>
+                <p className="font-extrabold text-[15px] md:text-base text-navy leading-tight">
+                  {selectedTestimonial.name}
+                </p>
+                <p className="text-muted text-xs md:text-sm mt-0.5">
+                  {selectedTestimonial.role}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* FOOTER */}
       <footer className="bg-navy pt-14 pb-7 border-t-[3px] border-teal-600">
