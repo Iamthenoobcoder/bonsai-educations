@@ -322,12 +322,8 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-          <div className="border-t border-white/10 pt-6 mt-4 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="border-t border-white/10 pt-6 mt-4 flex justify-center items-center text-center">
             <span className="text-white/40 text-xs">© 2026 BONSAI EDUCATIONS. All rights reserved.</span>
-            <div className="flex gap-6">
-              <Link href="#" className="text-white/40 text-xs hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="#" className="text-white/40 text-xs hover:text-white transition-colors">Terms of Service</Link>
-            </div>
           </div>
         </div>
       </footer>
