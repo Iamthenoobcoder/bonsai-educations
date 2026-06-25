@@ -29,19 +29,19 @@ export default function LandingPage() {
   const resultBoards = [
     {
       title: "CBSE Board Results",
-      image: "/results_1.png",
+      image: "/results_1.jpg",
       tag: "CBSE",
       desc: "Outstanding achievements in the Central Board of Secondary Education curriculum."
     },
     {
       title: "Cambridge Board Results",
-      image: "/results_2.png",
+      image: "/results_2.jpg",
       tag: "Cambridge (IGCSE)",
       desc: "Excellent global standard results in the Cambridge assessment programs."
     },
     {
       title: "ICSE & Boarding Schools Results",
-      image: "/results_3.png",
+      image: "/results_3.jpg",
       tag: "ICSE / Boarding",
       desc: "Pioneering scores from Sat Paul Mittal, Mayo College, Sanawar, Doon, and other prestigious boarding schools."
     }
