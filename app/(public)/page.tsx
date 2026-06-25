@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Check, Trophy, Star, Calculator, Atom, FlaskConical, Dna } from "lucide-react";
+import { Check, Star, Calculator, Atom, FlaskConical, Dna, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 
 interface Testimonial {
   quote: string;
@@ -16,6 +16,9 @@ interface Testimonial {
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
+  const [activeResultIndex, setActiveResultIndex] = useState(0);
+  const [zoomedResultImage, setZoomedResultImage] = useState<string | null>(null);
+  const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -23,16 +26,34 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
-
-
-
-  const toppers = [
-    { name: "Arjun Mehta", score: "Top Scorer", year: "Recent", stream: "PCM", rank: "State Ranked" },
-    { name: "Priya Nair", score: "Exceptional", year: "Recent", stream: "Commerce", rank: "District Topper" },
-    { name: "Rahul Gupta", score: "Merit List", year: "Alumni", stream: "PCM", rank: "State Recognized" },
-    { name: "Sneha Joshi", score: "Outstanding", year: "Alumni", stream: "Science", rank: "District Topper" },
+  const resultBoards = [
+    {
+      title: "CBSE Board Results",
+      image: "/results_1.png",
+      tag: "CBSE",
+      desc: "Outstanding achievements in the Central Board of Secondary Education curriculum."
+    },
+    {
+      title: "Cambridge Board Results",
+      image: "/results_2.png",
+      tag: "Cambridge (IGCSE)",
+      desc: "Excellent global standard results in the Cambridge assessment programs."
+    },
+    {
+      title: "ICSE & Boarding Schools Results",
+      image: "/results_3.png",
+      tag: "ICSE / Boarding",
+      desc: "Pioneering scores from Sat Paul Mittal, Mayo College, Sanawar, Doon, and other prestigious boarding schools."
+    }
   ];
+
+  useEffect(() => {
+    if (isAutoplayPaused || zoomedResultImage) return;
+    const timer = setInterval(() => {
+      setActiveResultIndex((prev) => (prev + 1) % resultBoards.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [isAutoplayPaused, zoomedResultImage, resultBoards.length]);
 
   const testimonials = [
     {
@@ -282,30 +303,201 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ACHIEVEMENTS */}
+      {/* ACHIEVEMENTS / RESULTS */}
       <section id="results" className="py-20 px-6 md:px-[5%] bg-white">
         <div className="text-center mb-12">
           <span className="text-gold text-[13px] font-semibold tracking-widest uppercase">Our Students Excel</span>
           <h2 className="display text-[38px] font-bold text-navy mt-2.5">A Record of Excellence</h2>
+          <p className="text-muted text-sm mt-3 max-w-xl mx-auto">
+            Click on any board results card to view the full resolution image and inspect individual scores in detail.
+          </p>
         </div>
-        <div className="grid md:grid-cols-4 gap-5 mb-10">
-          {toppers.map((t, i) => (
-            <div key={i} className="border border-border rounded-xl p-6 border-l-4 border-l-gold animate-[count_.5s_both] transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-lg hover:shadow-navy/5 cursor-pointer bg-white" style={{ animationDelay: `${i * 0.1}s` }}>
-              <div className="w-11 h-11 rounded-lg bg-navy flex items-center justify-center text-white font-bold text-[15px] mb-3.5">
-                {t.name.split(" ").map((n) => n[0]).join("")}
-              </div>
-              <p className="font-bold text-navy text-[15px]">{t.name}</p>
-              <p className="text-gold text-xl font-extrabold my-1.5">{t.score}</p>
-              <p className="text-muted text-xs">{t.stream} · {t.year}</p>
-              <div className="mt-2.5 inline-block bg-[#fef9ec] rounded-full px-2.5 py-1">
-                <span className="text-gold text-[11px] font-semibold flex items-center gap-1">
-                  <Trophy size={10} /> {t.rank}
-                </span>
-              </div>
-            </div>
+
+        {/* Board Selection Tabs */}
+        <div className="flex justify-center gap-3 mb-10 max-w-lg mx-auto">
+          {resultBoards.map((board, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveResultIndex(idx)}
+              className={`px-4 py-2 text-xs font-semibold rounded-full border transition-all duration-300 ${
+                activeResultIndex === idx
+                  ? "bg-teal-600 border-teal-600 text-white shadow-md shadow-teal-600/25"
+                  : "bg-surface border-border text-navy hover:bg-zinc-100"
+              }`}
+            >
+              {board.tag}
+            </button>
+          ))}
+        </div>
+
+        {/* Rotating Cards Container */}
+        <div 
+          className="relative max-w-5xl mx-auto h-[480px] md:h-[620px] flex items-center justify-center overflow-hidden px-4 select-none"
+          onMouseEnter={() => setIsAutoplayPaused(true)}
+          onMouseLeave={() => setIsAutoplayPaused(false)}
+        >
+          {/* Previous Arrow */}
+          <button
+            onClick={() => setActiveResultIndex((prev) => (prev - 1 + resultBoards.length) % resultBoards.length)}
+            className="absolute left-2 md:left-10 z-30 p-3 rounded-full bg-white/80 border border-zinc-200 text-navy hover:bg-white hover:scale-105 transition-all shadow-md cursor-pointer"
+            aria-label="Previous board"
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          {/* Next Arrow */}
+          <button
+            onClick={() => setActiveResultIndex((prev) => (prev + 1) % resultBoards.length)}
+            className="absolute right-2 md:right-10 z-30 p-3 rounded-full bg-white/80 border border-zinc-200 text-navy hover:bg-white hover:scale-105 transition-all shadow-md cursor-pointer"
+            aria-label="Next board"
+          >
+            <ChevronRight size={20} />
+          </button>
+
+          {/* 3D Rotating Stack */}
+          <div className="relative w-full max-w-[340px] md:max-w-[440px] h-[400px] md:h-[540px] flex items-center justify-center">
+            {resultBoards.map((board, idx) => {
+              // Calculate relative position index (-1, 0, 1)
+              let offset = idx - activeResultIndex;
+              // Handle wrapping for infinite rotation visual structure
+              if (offset < -1) offset += resultBoards.length;
+              if (offset > 1) offset -= resultBoards.length;
+
+              const isActive = offset === 0;
+              const isPrev = offset === -1;
+              const isNext = offset === 1;
+
+              // Compute transform classes based on active state
+              let transformStyles = "";
+              let opacity = 0;
+              let zIndex = 0;
+              let pointerEvents: "auto" | "none" = "auto";
+
+              if (isActive) {
+                transformStyles = "translate-x-0 scale-100 rotate-0";
+                opacity = 1;
+                zIndex = 20;
+                pointerEvents = "auto";
+              } else if (isPrev) {
+                transformStyles = "-translate-x-[40%] md:-translate-x-[60%] scale-80 -rotate-6";
+                opacity = 0.5;
+                zIndex = 10;
+                pointerEvents = "auto"; // Allow clicking to switch
+              } else if (isNext) {
+                transformStyles = "translate-x-[40%] md:translate-x-[60%] scale-80 rotate-6";
+                opacity = 0.5;
+                zIndex = 10;
+                pointerEvents = "auto"; // Allow clicking to switch
+              } else {
+                transformStyles = "scale-50 opacity-0 pointer-events-none";
+                opacity = 0;
+                zIndex = 0;
+                pointerEvents = "none";
+              }
+
+              return (
+                <div
+                  key={idx}
+                  onClick={() => {
+                    if (isActive) {
+                      setZoomedResultImage(board.image);
+                    } else {
+                      setActiveResultIndex(idx);
+                    }
+                  }}
+                  style={{
+                    opacity,
+                    zIndex,
+                    pointerEvents,
+                  }}
+                  className={`absolute w-full h-full transition-all duration-500 ease-out cursor-pointer transform ${transformStyles}`}
+                >
+                  {/* Card wrapper */}
+                  <div className="w-full h-full bg-white border border-zinc-200/80 rounded-2xl p-4 shadow-xl flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300">
+                    <div className="relative flex-1 w-full bg-zinc-50 rounded-xl overflow-hidden border border-zinc-100 flex items-center justify-center p-2 group">
+                      <Image
+                        src={board.image}
+                        alt={board.title}
+                        fill
+                        className="object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                        sizes="(max-w-768px) 100vw, 440px"
+                        priority={idx === 0}
+                      />
+                      
+                      {/* Hover overlay with zoom icon for active card */}
+                      {isActive && (
+                        <div className="absolute inset-0 bg-navy/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                          <div className="p-3 bg-white/90 backdrop-blur-sm rounded-full text-navy shadow-md transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                            <Maximize2 size={20} />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="mt-4 text-center">
+                      <span className="text-[10px] font-bold tracking-widest uppercase bg-teal-50 text-teal-600 px-2 py-0.5 rounded border border-teal-100">
+                        {board.tag}
+                      </span>
+                      <h3 className="text-base font-bold text-navy mt-2 mb-1">{board.title}</h3>
+                      <p className="text-muted text-[11px] md:text-xs leading-normal line-clamp-1">{board.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Carousel Indicators (Dots) */}
+        <div className="flex justify-center gap-2 mt-4">
+          {resultBoards.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveResultIndex(idx)}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                activeResultIndex === idx
+                  ? "bg-teal-600 w-6"
+                  : "bg-zinc-300 hover:bg-zinc-400"
+              }`}
+              aria-label={`Go to board ${idx + 1}`}
+            />
           ))}
         </div>
       </section>
+
+      {/* Result Image Zoom Modal */}
+      {zoomedResultImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy/85 backdrop-blur-md transition-opacity duration-300 animate-[fadeIn_0.2s_ease-out]"
+          onClick={() => setZoomedResultImage(null)}
+        >
+          <div
+            className="relative max-w-4xl w-full h-[85vh] flex flex-col items-center justify-center animate-[count_0.3s_cubic-bezier(0.34,1.56,0.64,1)]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setZoomedResultImage(null)}
+              className="absolute -top-12 right-2 md:right-0 w-10 h-10 rounded-full bg-white hover:bg-zinc-200 text-navy flex items-center justify-center transition-colors text-xl font-bold z-50 cursor-pointer shadow-lg"
+              aria-label="Close modal"
+            >
+              ×
+            </button>
+
+            {/* Zoomed Image Container */}
+            <div className="relative w-full h-full bg-white border border-zinc-800 rounded-2xl overflow-hidden p-4 flex items-center justify-center">
+              <Image
+                src={zoomedResultImage}
+                alt="Zoomed board results"
+                fill
+                className="object-contain"
+                sizes="100vw"
+                priority
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* FACULTY/DIRECTOR */}
       <section id="faculty" className="py-20 px-6 md:px-[5%] bg-gradient-to-b from-navy to-[#163a5c]">
