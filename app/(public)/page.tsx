@@ -188,41 +188,29 @@ export default function LandingPage() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="py-20 px-6 md:px-[5%] bg-white grid md:grid-cols-2 gap-16 items-center">
-        <div>
-          <div className="flex items-center gap-2.5 mb-4">
+      <section id="about" className="py-20 px-6 md:px-[5%] bg-white flex flex-col items-center text-center">
+        <div className="max-w-3xl mx-auto">
+          <div className="flex items-center justify-center gap-2.5 mb-4">
             <div className="w-[3px] h-8 bg-gold rounded-full" />
             <span className="text-gold text-[13px] font-semibold tracking-widest uppercase">About Us</span>
           </div>
-          <h2 className="display text-[40px] font-bold text-navy mb-4 leading-tight">A legacy of brilliant minds.</h2>
+          <h2 className="display text-[40px] font-bold text-navy mb-5 leading-tight">A legacy of brilliant minds.</h2>
           <p className="text-muted text-base leading-[1.8] mb-4">
             Founded in 2009, Bonsai Educations has grown to become Ludhiana&apos;s most trusted name in secondary and senior secondary coaching. We don&apos;t just teach the syllabus — we nurture critical thinking and build lasting subject mastery.
           </p>
-          <p className="text-muted text-base leading-[1.8] mb-7">
+          <p className="text-muted text-base leading-[1.8] mb-8">
             Located at 157-I, Sarabha Nagar, our campus serves students from Class 8 through 12 across Science, Commerce, and Arts streams.
           </p>
-          {["Focused batch sizes for personal engagement", "Personalised attention and doubt-clearing sessions", "Regular mock exams aligned to board patterns"].map((t) => (
-            <div key={t} className="flex items-center gap-2.5 mb-2.5">
-              <div className="w-5 h-5 rounded bg-teal-600 flex items-center justify-center shrink-0">
-                <Check size={12} className="text-white" strokeWidth={3} />
+          <div className="flex flex-col md:flex-row justify-center gap-5 md:gap-8 mt-6">
+            {["Focused batch sizes for personal engagement", "Personalised attention and doubt-clearing sessions", "Regular mock exams aligned to board patterns"].map((t) => (
+              <div key={t} className="flex items-center gap-2.5">
+                <div className="w-5 h-5 rounded bg-teal-600 flex items-center justify-center shrink-0">
+                  <Check size={12} className="text-white" strokeWidth={3} />
+                </div>
+                <span className="text-[14px] text-gray-700 text-left">{t}</span>
               </div>
-              <span className="text-[14px] text-gray-700">{t}</span>
-            </div>
-          ))}
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            ["#EEF3FA", "var(--color-navy)", "Founded", "Established", "Pioneering education in Ludhiana"],
-            ["#E1F5EE", "var(--color-teal)", "Subjects", "Comprehensive", "Science, Commerce & Arts"],
-            ["#FEF9EC", "var(--color-gold)", "Batches", "Flexible", "Morning & Evening timings"],
-            ["#F3F0FF", "#5b21b6", "Reach", "Expanding", "Serving students across the city"],
-          ].map(([bg, ac, label, v, sub]) => (
-            <div key={label} style={{ background: bg }} className="rounded-xl p-5">
-              <p style={{ color: ac }} className="text-[11px] font-bold tracking-widest uppercase mb-1.5">{label}</p>
-              <p className="text-navy text-xl font-extrabold mb-1">{v}</p>
-              <p className="text-muted text-xs">{sub}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
