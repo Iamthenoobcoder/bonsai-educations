@@ -228,7 +228,7 @@ export default function LandingPage() {
               <div className="h-1 w-16 bg-teal-500 rounded-full mt-4" />
             </div>
             <p className="text-muted text-base leading-relaxed">
-              At Bonsai, we deliver rigorous, high-impact instruction in core STEM disciplines. Our academic framework is tailored for students from <strong>Class 8th to 11th</strong>, preparing them to excel under the curriculum requirements of major national and international boards:
+              Bonsai delivers specialized academic instruction in Physics, Chemistry, Biology, and Mathematics, specifically designed for students in <strong>Classes 8th to 11th</strong>. Our curriculum provides robust preparation tailored to the rigorous standards of <strong>ICSE, IGCSE (Cambridge), and CBSE</strong> board examinations, fostering both deep conceptual clarity and academic excellence.
             </p>
             <div className="flex flex-wrap gap-2 pt-2">
               {["CBSE", "ICSE", "IGCSE (Cambridge)"].map((board) => (
