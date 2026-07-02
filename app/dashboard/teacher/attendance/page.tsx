@@ -105,6 +105,7 @@ export default function TeacherAttendance() {
         const { data, error } = await supabase
           .from('classes')
           .select('id, name, grade')
+          .eq('teacher_id', user.id)
           .order('name')
         
         if (error || !data || data.length === 0) {
