@@ -5,6 +5,8 @@
 drop view if exists public.attendance_summary cascade;
 drop table if exists public.attendance_records cascade;
 drop table if exists public.attendance_sessions cascade;
+drop table if exists public.scans cascade;
+drop table if exists public.student_details cascade;
 drop table if exists public.scores cascade;
 drop table if exists public.timetable cascade;
 drop table if exists public.class_students cascade;
@@ -211,106 +213,104 @@ create policy "Teachers and Admins can manage scores"
 
 
 -- =========================================================================
--- 7. ATTENDANCE SESSIONS TABLE
+-- 7. STUDENT DETAILS TABLE (Matches StudentIDCards Sheet)
 -- =========================================================================
-create table public.attendance_sessions (
-  id uuid primary key default gen_random_uuid(),
-  class_id uuid references public.classes(id) on delete cascade not null,
-  teacher_id uuid references public.profiles(id) on delete set null,
-  attendance_date date not null,
-  locked boolean default false,
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  constraint unique_class_session unique(class_id, attendance_date)
+create table public.student_details (
+  "Student_ID" text primary key,
+  "FirstName" text,
+  "LastName" text,
+  "Father" text,
+  "Mother" text,
+  "Subject" text,
+  "Teacher" text,
+  "D.O.B." text,
+  "Image" text,
+  "Grade" text,
+  "DateOfJoining" text,
+  "ExpiryDate" text,
+  "Gender" text,
+  "EmailAddress" text,
+  "QRCode" text,
+  "file_status" text,
+  "file_link" text,
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
-alter table public.attendance_sessions enable row level security;
+alter table public.student_details enable row level security;
 
-create policy "Sessions are viewable by authenticated users" 
-  on public.attendance_sessions for select using (auth.role() = 'authenticated');
+-- Helper function to check if the user is an admin or teacher
+create or replace function public.is_admin_or_teacher()
+returns boolean as $$
+begin
+  return exists (
+    select 1 from public.profiles 
+    where id = auth.uid() and role in ('admin', 'teacher')
+  );
+end;
+$$ language plpgsql security definer;
 
-create policy "Teachers and Admins can manage sessions" 
-  on public.attendance_sessions for all using (
+-- Policies for student_details
+create policy "Select student_details"
+  on public.student_details for select using (
+    auth.role() = 'authenticated' and (
+      public.is_admin_or_teacher() or
+      "EmailAddress" = (select email from public.profiles where id = auth.uid()) or
+      "Father" = (select phone from public.profiles where id = auth.uid()) or
+      "Mother" = (select phone from public.profiles where id = auth.uid())
+    )
+  );
+
+create policy "Admin manage student_details"
+  on public.student_details for all using (
     exists (
       select 1 from public.profiles 
-      where profiles.id = auth.uid() and profiles.role in ('admin', 'teacher')
+      where id = auth.uid() and role = 'admin'
     )
   );
 
 
 -- =========================================================================
--- 8. ATTENDANCE RECORDS TABLE
+-- 8. SCANS TABLE (Matches Scans Sheet)
 -- =========================================================================
-create table public.attendance_records (
-  id uuid primary key default gen_random_uuid(),
-  session_id uuid references public.attendance_sessions(id) on delete cascade not null,
-  student_id uuid references public.profiles(id) on delete cascade not null,
-  status text check (status in ('Present', 'Absent', 'Late', 'Pending')) default 'Pending',
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  constraint unique_student_session unique(session_id, student_id)
+create table public.scans (
+  "Scan_ID" text primary key default gen_random_uuid()::text,
+  "Student_ID" text references public.student_details("Student_ID") on delete cascade not null,
+  "DateTime" timestamp with time zone not null default timezone('utc'::text, now()),
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
 
-alter table public.attendance_records enable row level security;
+alter table public.scans enable row level security;
 
--- Attendance select policies
-create policy "Students can view own attendance records" 
-  on public.attendance_records for select using (student_id = auth.uid());
-
-create policy "Parents can view children's attendance records" 
-  on public.attendance_records for select using (
-    exists (
-      select 1 from public.parent_child 
-      where parent_child.parent_id = auth.uid() and parent_child.student_id = attendance_records.student_id
+-- Policies for scans
+create policy "Select scans"
+  on public.scans for select using (
+    auth.role() = 'authenticated' and (
+      public.is_admin_or_teacher() or
+      "Student_ID" in (
+        select "Student_ID" from public.student_details 
+        where "EmailAddress" = (select email from public.profiles where id = auth.uid()) or
+              "Father" = (select phone from public.profiles where id = auth.uid()) or
+              "Mother" = (select phone from public.profiles where id = auth.uid())
+      )
     )
   );
 
-create policy "Teachers and Admins can view all attendance records" 
-  on public.attendance_records for select using (
-    exists (
-      select 1 from public.profiles 
-      where profiles.id = auth.uid() and profiles.role in ('admin', 'teacher')
-    )
-  );
-
--- Attendance write policies
-create policy "Teachers and Admins can manage attendance records" 
-  on public.attendance_records for all using (
-    exists (
-      select 1 from public.profiles 
-      where profiles.id = auth.uid() and profiles.role in ('admin', 'teacher')
-    )
+create policy "Teacher/Admin manage scans"
+  on public.scans for all using (
+    public.is_admin_or_teacher()
   );
 
 
 -- =========================================================================
--- 9. ATTENDANCE SUMMARY VIEW
+-- 9. INDEXES FOR PERFORMANCE
 -- =========================================================================
-create view public.attendance_summary as
-select 
-  ar.student_id,
-  asess.class_id,
-  count(ar.id) as total_classes,
-  sum(case when ar.status = 'Present' then 1 else 0 end) as present_count,
-  sum(case when ar.status = 'Absent' then 1 else 0 end) as absent_count,
-  sum(case when ar.status = 'Late' then 1 else 0 end) as late_count,
-  sum(case when ar.status = 'Pending' then 1 else 0 end) as pending_count,
-  round(
-    (sum(case when ar.status in ('Present', 'Late') then 1 else 0 end)::numeric / 
-     nullif(count(ar.id), 0)::numeric) * 100, 
-    1
-  ) as attendance_percentage
-from public.attendance_records ar
-join public.attendance_sessions asess on ar.session_id = asess.id
-group by ar.student_id, asess.class_id;
-
-
--- =========================================================================
--- 10. INDEXES FOR PERFORMANCE
--- =========================================================================
+create index idx_student_details_email on public.student_details("EmailAddress");
+create index idx_student_details_father on public.student_details("Father");
+create index idx_student_details_mother on public.student_details("Mother");
+create index idx_scans_student_id on public.scans("Student_ID");
+create index idx_scans_datetime on public.scans("DateTime" desc);
 create index idx_parent_child_parent on public.parent_child(parent_id);
 create index idx_parent_child_student on public.parent_child(student_id);
 create index idx_class_students_student on public.class_students(student_id);
 create index idx_timetable_class on public.timetable(class_id);
 create index idx_scores_student on public.scores(student_id);
-create index idx_attendance_sessions_class_date on public.attendance_sessions(class_id, attendance_date);
-create index idx_attendance_records_student on public.attendance_records(student_id);
-create index idx_attendance_records_session on public.attendance_records(session_id);
